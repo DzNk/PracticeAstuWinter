@@ -1,3 +1,3 @@
-import { LayoutPage } from "./layout";
+import { LayoutPage } from "./layout.tsx";
 
 export default LayoutPage;

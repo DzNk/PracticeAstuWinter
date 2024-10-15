@@ -1,18 +1,18 @@
 import { defineConfig } from "@hey-api/openapi-ts";
-import { loadEnvConfig } from "@next/env";
+import { loadEnv } from "vite";
 
-const projectDir = process.cwd();
-loadEnvConfig(projectDir);
+const mode = "development";
+const env = loadEnv(mode, process.cwd());
 
 export default defineConfig({
     client: {
         name: "@hey-api/client-fetch",
-        bundle: false,
+        bundle: true,
     },
-    input: process.env.NEXT_PUBLIC_API_BASE_URL + "/openapi.json",
+    input: env.VITE_API_BASE_URL + "/openapi.json",
     output: {
         format: "prettier",
-        path: "api",
+        path: "src/api",
         lint: false,
     },
     services: {
