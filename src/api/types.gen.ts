@@ -10,6 +10,11 @@ export type LoginResponse = {
     ok?: boolean;
 };
 
+export type OkResponseSchema = {
+    ok: boolean;
+    message?: string;
+};
+
 export type PaginationRequest = {
     page: number;
     perPage: number;
@@ -18,6 +23,14 @@ export type PaginationRequest = {
 export type PaginationResponse = {
     total: number;
     pages: number;
+};
+
+export type ProductEditRequest = {
+    name: string;
+    description: string;
+    price: number;
+    article: string;
+    quantity: number;
 };
 
 export type ProductItem = {
@@ -65,3 +78,19 @@ export type GetProductsListData = {
 export type GetProductsListResponse = ProductList;
 
 export type GetProductsListError = HTTPValidationError;
+
+export type CreateProductData = {
+    body: ProductEditRequest;
+};
+
+export type CreateProductResponse = OkResponseSchema;
+
+export type CreateProductError = HTTPValidationError;
+
+export type EditProductData = {
+    body: ProductEditRequest;
+};
+
+export type EditProductResponse = OkResponseSchema;
+
+export type EditProductError = HTTPValidationError;

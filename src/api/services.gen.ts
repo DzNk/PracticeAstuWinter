@@ -8,6 +8,12 @@ import type {
     GetProductsListData,
     GetProductsListError,
     GetProductsListResponse,
+    CreateProductData,
+    CreateProductError,
+    CreateProductResponse,
+    EditProductData,
+    EditProductError,
+    EditProductResponse,
 } from "./types.gen";
 
 export const client = createClient(createConfig());
@@ -44,6 +50,38 @@ export class ProductsService {
         >({
             ...options,
             url: "/products/list",
+        });
+    }
+
+    /**
+     * Create Product
+     */
+    public static createProduct<ThrowOnError extends boolean = false>(
+        options: Options<CreateProductData, ThrowOnError>
+    ) {
+        return (options?.client ?? client).post<
+            CreateProductResponse,
+            CreateProductError,
+            ThrowOnError
+        >({
+            ...options,
+            url: "/products/create",
+        });
+    }
+
+    /**
+     * Edit Product
+     */
+    public static editProduct<ThrowOnError extends boolean = false>(
+        options: Options<EditProductData, ThrowOnError>
+    ) {
+        return (options?.client ?? client).post<
+            EditProductResponse,
+            EditProductError,
+            ThrowOnError
+        >({
+            ...options,
+            url: "/products/edit",
         });
     }
 }

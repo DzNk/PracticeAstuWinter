@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { ProductItem, ProductsService } from "../../../api";
+import { ProductItem, ProductsService } from "../../../../../api";
 
-export function useHomePage() {
+export function useAdminHomePage() {
     const [data, setData] = useState<ProductItem[]>([]);
     const [pagination, setPagination] = useState({
         pageIndex: 0,
@@ -9,7 +9,7 @@ export function useHomePage() {
     });
     const [globalFilter, setGlobalFilter] = useState("");
 
-    useEffect(() => {
+    function reloadTable() {
         ProductsService.getProductsList({
             body: {
                 keyword: globalFilter,
@@ -23,7 +23,18 @@ export function useHomePage() {
             if (!products) return;
             setData(products);
         });
+    }
+
+    useEffect(() => {
+        reloadTable();
     }, [pagination, globalFilter]);
 
-    return { data, pagination, setPagination, globalFilter, setGlobalFilter };
+    return {
+        data,
+        pagination,
+        setPagination,
+        globalFilter,
+        setGlobalFilter,
+        reloadTable,
+    };
 }

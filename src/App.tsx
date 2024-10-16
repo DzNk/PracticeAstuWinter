@@ -6,14 +6,17 @@ import { theme } from "./theme";
 import LayoutPage from "./pages/layout";
 import { UserProvider } from "./contexts/userContext/contextProvider.tsx";
 import { Notifications } from "@mantine/notifications";
+import { ModalsProvider } from "@mantine/modals";
 
 export default function App() {
     return (
         <MantineProvider theme={theme}>
-            <UserProvider>
-                <Notifications />
-                <LayoutPage />
-            </UserProvider>
+            <ModalsProvider>
+                <UserProvider>
+                    <Notifications />
+                    <LayoutPage />
+                </UserProvider>
+            </ModalsProvider>
         </MantineProvider>
     );
 }

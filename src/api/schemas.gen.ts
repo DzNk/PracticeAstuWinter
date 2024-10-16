@@ -35,6 +35,23 @@ export const LoginResponseSchema = {
     title: "LoginResponse",
 } as const;
 
+export const OkResponseSchemaSchema = {
+    properties: {
+        ok: {
+            type: "boolean",
+            title: "Ok",
+        },
+        message: {
+            type: "string",
+            title: "Message",
+            default: "",
+        },
+    },
+    type: "object",
+    required: ["ok"],
+    title: "OkResponseSchema",
+} as const;
+
 export const PaginationRequestSchema = {
     properties: {
         page: {
@@ -65,6 +82,34 @@ export const PaginationResponseSchema = {
     type: "object",
     required: ["total", "pages"],
     title: "PaginationResponse",
+} as const;
+
+export const ProductEditRequestSchema = {
+    properties: {
+        name: {
+            type: "string",
+            title: "Name",
+        },
+        description: {
+            type: "string",
+            title: "Description",
+        },
+        price: {
+            type: "number",
+            title: "Price",
+        },
+        article: {
+            type: "string",
+            title: "Article",
+        },
+        quantity: {
+            type: "integer",
+            title: "Quantity",
+        },
+    },
+    type: "object",
+    required: ["name", "description", "price", "article", "quantity"],
+    title: "ProductEditRequest",
 } as const;
 
 export const ProductItemSchema = {

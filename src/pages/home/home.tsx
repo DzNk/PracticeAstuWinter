@@ -1,36 +1,36 @@
-import { Center, Stack, Title } from "@mantine/core";
-import { useHomePage } from "./hooks/useHomePage.ts";
-
-import { MantineReactTable, useMantineReactTable } from "mantine-react-table";
-import { useHomePageColumns } from "./columns.ts";
-
-import { MRT_Localization_RU } from "mantine-react-table/locales/ru/index.cjs";
+import { AdminHome } from "./components/AdminHome/AdminHome.tsx";
+import {
+    ProductCreateFormContextProvider,
+    useProductCreateForm,
+} from "./components/CreateProductModal/contexts/useProductCreationModal/contexts.ts";
 
 export function HomePage() {
-    const { data, pagination, setPagination, globalFilter, setGlobalFilter } =
-        useHomePage();
-    const columns = useHomePageColumns();
-    const table = useMantineReactTable({
-        columns,
-        data,
-        manualPagination: true,
-        onPaginationChange: setPagination,
-        manualFiltering: true,
-        onGlobalFilterChange: setGlobalFilter,
-        state: { pagination, globalFilter },
-        paginationDisplayMode: "pages",
-        localization: MRT_Localization_RU,
-        enableColumnFilters: false,
+    const form = useProductCreateForm({
+        initialValues: {
+            price: 0,
+            quantity: 0,
+            description: "",
+            name: "",
+            article: "",
+        },
+        validate: {
+            price: value => (value > 0 ? null : "Цена не может быть меньше 0"),
+            quantity: value =>
+                value > 0 ? null : "Количество не может быть меньше 0",
+            name: value =>
+                value.length > 3
+                    ? null
+                    : "Название не может быть короче 3-х символов",
+            article: value =>
+                value.length > 3
+                    ? null
+                    : "Артикул не может быть короче 3-х символов",
+        },
     });
 
     return (
-        <div>
-            <Stack>
-                <Center>
-                    <Title order={2}>Товары</Title>
-                </Center>
-                <MantineReactTable table={table} />
-            </Stack>
-        </div>
+        <ProductCreateFormContextProvider form={form}>
+            <AdminHome />
+        </ProductCreateFormContextProvider>
     );
 }
