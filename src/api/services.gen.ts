@@ -37,6 +37,11 @@ import type {
     GetOrderPdfData,
     GetOrderPdfError,
     GetOrderPdfResponse,
+    GetSalesListError,
+    GetSalesListResponse,
+    CreateOrderData,
+    CreateOrderError,
+    CreateOrderResponse,
 } from "./types.gen";
 
 export const client = createClient(createConfig());
@@ -233,6 +238,38 @@ export class ProductsService {
         >({
             ...options,
             url: "/products/get-order-pdf",
+        });
+    }
+
+    /**
+     * Get Order Pdf
+     */
+    public static getSalesList<ThrowOnError extends boolean = false>(
+        options?: Options<unknown, ThrowOnError>
+    ) {
+        return (options?.client ?? client).post<
+            GetSalesListResponse,
+            GetSalesListError,
+            ThrowOnError
+        >({
+            ...options,
+            url: "/products/sales-list",
+        });
+    }
+
+    /**
+     * Create Order
+     */
+    public static createOrder<ThrowOnError extends boolean = false>(
+        options: Options<CreateOrderData, ThrowOnError>
+    ) {
+        return (options?.client ?? client).post<
+            CreateOrderResponse,
+            CreateOrderError,
+            ThrowOnError
+        >({
+            ...options,
+            url: "/products/create-order",
         });
     }
 }

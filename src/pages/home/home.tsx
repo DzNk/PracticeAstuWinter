@@ -6,11 +6,11 @@ import {
 import { useUserContext } from "../../contexts/userContext/context.ts";
 import { UserPermission } from "../../contexts/userContext/types.ts";
 import React from "react";
-import { Text } from "@mantine/core";
 import {
     SalesRequestFormContextProvider,
     useSalesRequestForm,
 } from "./components/CreateSalesRequestModal/contexts/useSalesRequestModal/contexts.ts";
+import { UserHome } from "./components/UserHome/UserHome.tsx";
 
 export function HomePage() {
     const user = useUserContext();
@@ -60,6 +60,6 @@ export function HomePage() {
             </SalesRequestFormContextProvider>
         </ProductCreateFormContextProvider>
     ) : (
-        <Text>А ты сотрудник</Text>
+        <UserHome />
     );
 }
