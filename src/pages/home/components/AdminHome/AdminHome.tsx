@@ -10,6 +10,7 @@ import { useState } from "react";
 
 export function AdminHome() {
     const {
+        rowCount,
         data,
         pagination,
         setPagination,
@@ -28,6 +29,7 @@ export function AdminHome() {
         columns,
         data,
         manualPagination: true,
+        rowCount: rowCount,
         onPaginationChange: setPagination,
         manualFiltering: true,
         onGlobalFilterChange: setGlobalFilter,
@@ -40,7 +42,7 @@ export function AdminHome() {
         renderTopToolbarCustomActions: () => (
             <Button
                 onClick={() => {
-                    setEditingData(null); // Устанавливаем null, чтобы открыть для создания
+                    setEditingData(null);
                     handlers.open();
                 }}>
                 Создать товар
@@ -48,7 +50,7 @@ export function AdminHome() {
         ),
         renderRowActionMenuItems: ({ row }) => {
             const handleEditClick = () => {
-                setEditingData(row.original); // Устанавливаем данные продукта для редактирования
+                setEditingData(row.original);
                 handlers.open();
             };
 
@@ -60,7 +62,7 @@ export function AdminHome() {
         <div>
             <CreateProductModal
                 opened={opened}
-                product={editingData} // Передаем данные для редактирования
+                product={editingData}
                 reloadTable={reloadTable}
                 close={handlers.close}
             />

@@ -70,17 +70,13 @@ export const PaginationRequestSchema = {
 
 export const PaginationResponseSchema = {
     properties: {
-        total: {
+        rowCount: {
             type: "integer",
-            title: "Total",
-        },
-        pages: {
-            type: "integer",
-            title: "Pages",
+            title: "Rowcount",
         },
     },
     type: "object",
-    required: ["total", "pages"],
+    required: ["rowCount"],
     title: "PaginationResponse",
 } as const;
 

@@ -5,9 +5,10 @@ export function useAdminHomePage() {
     const [data, setData] = useState<ProductItem[]>([]);
     const [pagination, setPagination] = useState({
         pageIndex: 0,
-        pageSize: 10,
+        pageSize: 5,
     });
     const [globalFilter, setGlobalFilter] = useState("");
+    const [rowCount, setRowCount] = useState(0);
 
     function reloadTable() {
         ProductsService.getProductsList({
@@ -22,6 +23,10 @@ export function useAdminHomePage() {
             const products = responseReceived.data?.products;
             if (!products) return;
             setData(products);
+
+            const rowCount = responseReceived.data?.paginationInfo;
+            if (!rowCount) return;
+            setRowCount(rowCount.rowCount);
         });
     }
 
@@ -30,6 +35,7 @@ export function useAdminHomePage() {
     }, [pagination, globalFilter]);
 
     return {
+        rowCount,
         data,
         pagination,
         setPagination,

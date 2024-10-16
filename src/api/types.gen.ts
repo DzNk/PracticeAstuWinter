@@ -21,8 +21,7 @@ export type PaginationRequest = {
 };
 
 export type PaginationResponse = {
-    total: number;
-    pages: number;
+    rowCount: number;
 };
 
 export type ProductEditRequest = {

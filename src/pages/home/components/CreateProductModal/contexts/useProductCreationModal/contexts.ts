@@ -1,8 +1,8 @@
 import { createFormContext } from "@mantine/form";
-import { ProductCreateRequest } from "../../../../../../api";
+import { ProductEditRequest } from "../../../../../../api";
 
 export const [
     ProductCreateFormContextProvider,
     useProductCreateFormContext,
     useProductCreateForm,
-] = createFormContext<ProductCreateRequest>();
+] = createFormContext<ProductEditRequest>();
