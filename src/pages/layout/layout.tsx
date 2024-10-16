@@ -3,8 +3,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import LoginPage from "../../pages/login";
 import { useUserContext } from "../../contexts/userContext/context.ts";
 import { PrivateRouters } from "../../components/PrivateRouters/PrivateRouters.tsx";
-import { useEffect } from "react";
-import { client } from "../../api";
 import { HomePage } from "../home/home.tsx";
 import { Navbar } from "../../components/navbar/navbar.tsx";
 import { LogoutPage } from "../logout/logout.tsx";
@@ -12,12 +10,6 @@ import UserPage from "../users";
 
 export function LayoutPage() {
     const { user } = useUserContext();
-
-    useEffect(() => {
-        client.setConfig({
-            baseUrl: import.meta.env.VITE_API_BASE_URL,
-        });
-    }, [import.meta.env.VITE_API_BASE_URL]);
 
     return (
         <BrowserRouter>
