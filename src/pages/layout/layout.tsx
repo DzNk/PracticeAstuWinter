@@ -7,6 +7,7 @@ import { HomePage } from "../home/home.tsx";
 import { Navbar } from "../../components/navbar/navbar.tsx";
 import { LogoutPage } from "../logout/logout.tsx";
 import UserPage from "../users";
+import { OrdersPage } from "../orders/orders.tsx";
 
 export function LayoutPage() {
     const { user } = useUserContext();
@@ -51,6 +52,10 @@ export function LayoutPage() {
                                 <Route
                                     path={"logout"}
                                     element={<LogoutPage />}
+                                />
+                                <Route
+                                    path={"sales"}
+                                    element={<OrdersPage />}
                                 />
                             </Routes>
                         </Paper>

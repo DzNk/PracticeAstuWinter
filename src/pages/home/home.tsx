@@ -7,10 +7,14 @@ import { useUserContext } from "../../contexts/userContext/context.ts";
 import { UserPermission } from "../../contexts/userContext/types.ts";
 import React from "react";
 import { Text } from "@mantine/core";
+import {
+    SalesRequestFormContextProvider,
+    useSalesRequestForm,
+} from "./components/CreateSalesRequestModal/contexts/useSalesRequestModal/contexts.ts";
 
 export function HomePage() {
     const user = useUserContext();
-    const form = useProductCreateForm({
+    const createForm = useProductCreateForm({
         initialValues: {
             price: 0,
             quantity: 0,
@@ -33,9 +37,27 @@ export function HomePage() {
         },
     });
 
+    const salesRequestForm = useSalesRequestForm({
+        initialValues: {
+            price: 0,
+            quantity: 0,
+            article: "",
+            userId: -1,
+            income: 0,
+        },
+        validate: {
+            price: value => (value > 0 ? null : "Цена не может быть меньше 0"),
+            quantity: value =>
+                value > 0 ? null : "Количество не может быть меньше 0",
+            userId: value => (value > 0 ? null : "Выберите сотрудника"),
+        },
+    });
+
     return user.user.permission == UserPermission.Admin ? (
-        <ProductCreateFormContextProvider form={form}>
-            <AdminHome />
+        <ProductCreateFormContextProvider form={createForm}>
+            <SalesRequestFormContextProvider form={salesRequestForm}>
+                <AdminHome />
+            </SalesRequestFormContextProvider>
         </ProductCreateFormContextProvider>
     ) : (
         <Text>А ты сотрудник</Text>

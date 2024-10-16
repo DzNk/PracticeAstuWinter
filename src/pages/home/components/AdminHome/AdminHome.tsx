@@ -1,4 +1,4 @@
-import { Button, Center, Stack, Title } from "@mantine/core";
+import { Button, Center, Menu, Stack, Title } from "@mantine/core";
 import { MantineReactTable, useMantineReactTable } from "mantine-react-table";
 import { MRT_Localization_RU } from "mantine-react-table/locales/ru/index.cjs";
 import { useAdminHomePage } from "./hooks/useAdminHomePage.ts";
@@ -7,6 +7,8 @@ import { CreateProductModal } from "../CreateProductModal/CreateProductModal.tsx
 import { useDisclosure } from "@mantine/hooks";
 import { ProductEditRequest } from "../../../../api";
 import { useState } from "react";
+import { CreateSalesRequestModal } from "../CreateSalesRequestModal/CreateSalesRequestModal.tsx";
+import { useSalesRequestFormContext } from "../CreateSalesRequestModal/contexts/useSalesRequestModal/contexts.ts";
 
 export function AdminHome() {
     const {
@@ -20,7 +22,10 @@ export function AdminHome() {
     } = useAdminHomePage();
 
     const columns = useHomePageColumns();
-    const [opened, handlers] = useDisclosure(false);
+    const salesForm = useSalesRequestFormContext();
+    const [createOpened, createHandlers] = useDisclosure(false);
+    const [salesOpened, salesHandlers] = useDisclosure(false);
+
     const [editingData, setEditingData] = useState<ProductEditRequest | null>(
         null
     );
@@ -43,7 +48,7 @@ export function AdminHome() {
             <Button
                 onClick={() => {
                     setEditingData(null);
-                    handlers.open();
+                    createHandlers.open();
                 }}>
                 Создать товар
             </Button>
@@ -51,20 +56,42 @@ export function AdminHome() {
         renderRowActionMenuItems: ({ row }) => {
             const handleEditClick = () => {
                 setEditingData(row.original);
-                handlers.open();
+                createHandlers.open();
             };
 
-            return <Button onClick={handleEditClick}>Обновить товар</Button>;
+            return (
+                <Stack
+                    p={"10px"}
+                    gap={"xs"}>
+                    <Button onClick={handleEditClick}>Обновить товар</Button>
+                    <Button
+                        onClick={() => {
+                            salesForm.setValues({
+                                quantity: row.original.quantity,
+                                price: row.original.price,
+                                article: row.original.article,
+                            });
+                            salesHandlers.open();
+                        }}>
+                        Создать запрос на продажу
+                    </Button>
+                </Stack>
+            );
         },
     });
 
     return (
         <div>
+            <CreateSalesRequestModal
+                opened={salesOpened}
+                reloadTable={reloadTable}
+                close={salesHandlers.close}
+            />
             <CreateProductModal
-                opened={opened}
+                opened={createOpened}
                 product={editingData}
                 reloadTable={reloadTable}
-                close={handlers.close}
+                close={createHandlers.close}
             />
             <Stack>
                 <Center>

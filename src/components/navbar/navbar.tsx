@@ -1,5 +1,6 @@
 import { ActionIcon, Center, Stack, ThemeIcon } from "@mantine/core";
 import {
+    IconBasketDollar,
     IconHome,
     IconLogout,
     IconPackage,
@@ -42,6 +43,13 @@ export function Navbar() {
                             <IconUser />
                         </ActionIcon>
                     )}
+                    <ActionIcon
+                        variant={"outline"}
+                        size={"xl"}
+                        radius={"xl"}
+                        onClick={() => navigate("/sales")}>
+                        <IconBasketDollar />
+                    </ActionIcon>
                 </Stack>
             </div>
 

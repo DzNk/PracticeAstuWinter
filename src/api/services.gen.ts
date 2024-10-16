@@ -14,6 +14,8 @@ import type {
     EditUserData,
     EditUserError,
     EditUserResponse,
+    ListEmployeesError,
+    ListEmployeesResponse,
     GetProductsListData,
     GetProductsListError,
     GetProductsListResponse,
@@ -23,6 +25,18 @@ import type {
     EditProductData,
     EditProductError,
     EditProductResponse,
+    CreateSalesRequestData,
+    CreateSalesRequestError,
+    CreateSalesRequestResponse,
+    ListProductOrdersData,
+    ListProductOrdersError,
+    ListProductOrdersResponse,
+    FinishOrderData,
+    FinishOrderError,
+    FinishOrderResponse,
+    GetOrderPdfData,
+    GetOrderPdfError,
+    GetOrderPdfResponse,
 } from "./types.gen";
 
 export const client = createClient(createConfig());
@@ -91,6 +105,22 @@ export class UserService {
             url: "/user/edit",
         });
     }
+
+    /**
+     * List Employees
+     */
+    public static listEmployees<ThrowOnError extends boolean = false>(
+        options?: Options<unknown, ThrowOnError>
+    ) {
+        return (options?.client ?? client).get<
+            ListEmployeesResponse,
+            ListEmployeesError,
+            ThrowOnError
+        >({
+            ...options,
+            url: "/user/employees",
+        });
+    }
 }
 
 export class ProductsService {
@@ -139,6 +169,70 @@ export class ProductsService {
         >({
             ...options,
             url: "/products/edit",
+        });
+    }
+
+    /**
+     * Create Sales Request
+     */
+    public static createSalesRequest<ThrowOnError extends boolean = false>(
+        options: Options<CreateSalesRequestData, ThrowOnError>
+    ) {
+        return (options?.client ?? client).post<
+            CreateSalesRequestResponse,
+            CreateSalesRequestError,
+            ThrowOnError
+        >({
+            ...options,
+            url: "/products/create-sales-request",
+        });
+    }
+
+    /**
+     * List Product Orders
+     */
+    public static listProductOrders<ThrowOnError extends boolean = false>(
+        options: Options<ListProductOrdersData, ThrowOnError>
+    ) {
+        return (options?.client ?? client).post<
+            ListProductOrdersResponse,
+            ListProductOrdersError,
+            ThrowOnError
+        >({
+            ...options,
+            url: "/products/list-product-orders",
+        });
+    }
+
+    /**
+     * List Product Orders
+     */
+    public static finishOrder<ThrowOnError extends boolean = false>(
+        options: Options<FinishOrderData, ThrowOnError>
+    ) {
+        return (options?.client ?? client).post<
+            FinishOrderResponse,
+            FinishOrderError,
+            ThrowOnError
+        >({
+            ...options,
+            url: "/products/finish-order",
+        });
+    }
+
+    /**
+     * Get Order Pdf
+     */
+    public static getOrderPdf<ThrowOnError extends boolean = false>(
+        options: Options<GetOrderPdfData, ThrowOnError>
+    ) {
+        return (options?.client ?? client).post<
+            GetOrderPdfResponse,
+            GetOrderPdfError,
+            ThrowOnError
+        >({
+            ...options,
+            url: "/products/get-order-pdf",
         });
     }
 }
