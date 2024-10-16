@@ -29,8 +29,13 @@ export function LoginPage() {
     const handleSubmit = (values: UserLogin) => {
         UserService.loginUser({ body: values }).then(responseReceived => {
             if (responseReceived?.data?.ok) {
-                saveUser({ username: values.username, isAuthenticated: true });
+                saveUser({
+                    username: values.username,
+                    isAuthenticated: true,
+                    permission: responseReceived.data.permission,
+                });
                 userContext.setAuthenticated();
+                userContext.setPermission(responseReceived.data.permission);
                 navigate("/");
             } else {
                 notifications.show({

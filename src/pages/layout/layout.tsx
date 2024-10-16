@@ -8,6 +8,7 @@ import { client } from "../../api";
 import { HomePage } from "../home/home.tsx";
 import { Navbar } from "../../components/navbar/navbar.tsx";
 import { LogoutPage } from "../logout/logout.tsx";
+import UserPage from "../users";
 
 export function LayoutPage() {
     const { user } = useUserContext();
@@ -45,6 +46,10 @@ export function LayoutPage() {
                                     <Route
                                         path={"/"}
                                         element={<HomePage />}
+                                    />
+                                    <Route
+                                        path={"/users"}
+                                        element={<UserPage />}
                                     />
                                 </Route>
                                 <Route

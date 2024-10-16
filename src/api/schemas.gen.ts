@@ -174,6 +174,71 @@ export const ProductListFilterSchema = {
     title: "ProductListFilter",
 } as const;
 
+export const UserDataRequestSchema = {
+    properties: {
+        username: {
+            type: "string",
+            title: "Username",
+        },
+        password: {
+            type: "string",
+            title: "Password",
+        },
+        permission: {
+            type: "integer",
+            title: "Permission",
+        },
+    },
+    type: "object",
+    required: ["username", "password", "permission"],
+    title: "UserDataRequest",
+} as const;
+
+export const UserListSchema = {
+    properties: {
+        users: {
+            items: {
+                $ref: "#/components/schemas/UserDataRequest",
+            },
+            type: "array",
+            title: "Users",
+        },
+        paginationInfo: {
+            $ref: "#/components/schemas/PaginationResponse",
+        },
+    },
+    type: "object",
+    required: ["users", "paginationInfo"],
+    title: "UserList",
+} as const;
+
+export const UserListFilterSchema = {
+    properties: {
+        keyword: {
+            type: "string",
+            title: "Keyword",
+            default: "",
+        },
+        permission: {
+            anyOf: [
+                {
+                    type: "integer",
+                },
+                {
+                    type: "null",
+                },
+            ],
+            title: "Permission",
+        },
+        pagination: {
+            $ref: "#/components/schemas/PaginationRequest",
+        },
+    },
+    type: "object",
+    required: ["pagination"],
+    title: "UserListFilter",
+} as const;
+
 export const UserLoginSchema = {
     properties: {
         username: {

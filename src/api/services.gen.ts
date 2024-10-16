@@ -5,6 +5,15 @@ import type {
     LoginUserData,
     LoginUserError,
     LoginUserResponse,
+    CreateUserData,
+    CreateUserError,
+    CreateUserResponse,
+    ListUsersData,
+    ListUsersError,
+    ListUsersResponse,
+    EditUserData,
+    EditUserError,
+    EditUserResponse,
     GetProductsListData,
     GetProductsListError,
     GetProductsListResponse,
@@ -32,6 +41,54 @@ export class UserService {
         >({
             ...options,
             url: "/user/login",
+        });
+    }
+
+    /**
+     * Create User
+     */
+    public static createUser<ThrowOnError extends boolean = false>(
+        options: Options<CreateUserData, ThrowOnError>
+    ) {
+        return (options?.client ?? client).post<
+            CreateUserResponse,
+            CreateUserError,
+            ThrowOnError
+        >({
+            ...options,
+            url: "/user/create",
+        });
+    }
+
+    /**
+     * Create User
+     */
+    public static listUsers<ThrowOnError extends boolean = false>(
+        options: Options<ListUsersData, ThrowOnError>
+    ) {
+        return (options?.client ?? client).post<
+            ListUsersResponse,
+            ListUsersError,
+            ThrowOnError
+        >({
+            ...options,
+            url: "/user/list",
+        });
+    }
+
+    /**
+     * Edit User
+     */
+    public static editUser<ThrowOnError extends boolean = false>(
+        options: Options<EditUserData, ThrowOnError>
+    ) {
+        return (options?.client ?? client).post<
+            EditUserResponse,
+            EditUserError,
+            ThrowOnError
+        >({
+            ...options,
+            url: "/user/edit",
         });
     }
 }

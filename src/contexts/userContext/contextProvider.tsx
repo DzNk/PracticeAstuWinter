@@ -9,7 +9,7 @@ export function loadUser(): User {
     if (userDataJson !== null) {
         userData = JSON.parse(userDataJson);
     } else {
-        userData = { username: "", isAuthenticated: false };
+        userData = { username: "", isAuthenticated: false, permission: 0 };
     }
 
     return userData;
@@ -45,6 +45,13 @@ export const UserProvider: React.FC<UserProviderProps> = (
         setUser(user);
     }
 
+    function setPermission(permission: number) {
+        const user = loadUser();
+        user.permission = permission;
+        saveUser(user);
+        setUser(user);
+    }
+
     function setUnauthenticated() {
         const user = loadUser();
         user.isAuthenticated = false;
@@ -61,6 +68,7 @@ export const UserProvider: React.FC<UserProviderProps> = (
         setUsername,
         setAuthenticated,
         setUnauthenticated,
+        setPermission
     };
 
     return (

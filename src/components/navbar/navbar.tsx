@@ -7,9 +7,12 @@ import {
 } from "@tabler/icons-react";
 import { useNavigate } from "react-router";
 import classes from "./navbar.module.css";
+import { useUserContext } from "../../contexts/userContext/context.ts";
+import { UserPermission } from "../../contexts/userContext/types.ts";
 
 export function Navbar() {
     const navigate = useNavigate();
+    const user = useUserContext();
 
     return (
         <nav className={classes.navbar}>
@@ -30,13 +33,15 @@ export function Navbar() {
                         onClick={() => navigate("/")}>
                         <IconHome />
                     </ActionIcon>
-                    <ActionIcon
-                        variant={"outline"}
-                        size={"xl"}
-                        radius={"xl"}
-                        onClick={() => navigate("/users")}>
-                        <IconUser />
-                    </ActionIcon>
+                    {user.user.permission == UserPermission.Admin && (
+                        <ActionIcon
+                            variant={"outline"}
+                            size={"xl"}
+                            radius={"xl"}
+                            onClick={() => navigate("/users")}>
+                            <IconUser />
+                        </ActionIcon>
+                    )}
                 </Stack>
             </div>
 

@@ -3,8 +3,13 @@ import {
     ProductCreateFormContextProvider,
     useProductCreateForm,
 } from "./components/CreateProductModal/contexts/useProductCreationModal/contexts.ts";
+import { useUserContext } from "../../contexts/userContext/context.ts";
+import { UserPermission } from "../../contexts/userContext/types.ts";
+import React from "react";
+import { Text } from "@mantine/core";
 
 export function HomePage() {
+    const user = useUserContext();
     const form = useProductCreateForm({
         initialValues: {
             price: 0,
@@ -28,9 +33,11 @@ export function HomePage() {
         },
     });
 
-    return (
+    return user.user.permission == UserPermission.Admin ? (
         <ProductCreateFormContextProvider form={form}>
             <AdminHome />
         </ProductCreateFormContextProvider>
+    ) : (
+        <Text>А ты сотрудник</Text>
     );
 }

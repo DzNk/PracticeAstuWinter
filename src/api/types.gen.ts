@@ -51,6 +51,23 @@ export type ProductListFilter = {
     pagination: PaginationRequest;
 };
 
+export type UserDataRequest = {
+    username: string;
+    password: string;
+    permission: number;
+};
+
+export type UserList = {
+    users: Array<UserDataRequest>;
+    paginationInfo: PaginationResponse;
+};
+
+export type UserListFilter = {
+    keyword?: string;
+    permission?: number | null;
+    pagination: PaginationRequest;
+};
+
 export type UserLogin = {
     username: string;
     password: string;
@@ -69,6 +86,30 @@ export type LoginUserData = {
 export type LoginUserResponse = LoginResponse;
 
 export type LoginUserError = HTTPValidationError;
+
+export type CreateUserData = {
+    body: UserDataRequest;
+};
+
+export type CreateUserResponse = OkResponseSchema;
+
+export type CreateUserError = HTTPValidationError;
+
+export type ListUsersData = {
+    body: UserListFilter;
+};
+
+export type ListUsersResponse = UserList;
+
+export type ListUsersError = HTTPValidationError;
+
+export type EditUserData = {
+    body: UserDataRequest;
+};
+
+export type EditUserResponse = OkResponseSchema;
+
+export type EditUserError = HTTPValidationError;
 
 export type GetProductsListData = {
     body: ProductListFilter;
