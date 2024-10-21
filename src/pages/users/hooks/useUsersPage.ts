@@ -15,9 +15,9 @@ export function useUsersPage() {
     function mapPermission(permission: string): number | null {
         switch (permission) {
             case "admin":
-                return 4;
-            case "user":
                 return 7;
+            case "user":
+                return 4;
             default:
                 return null;
         }
